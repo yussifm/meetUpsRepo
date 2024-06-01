@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todoapp/widgets/input_field_widget.dart';
 
 class CreateScreen extends StatefulWidget {
   const CreateScreen({super.key});
@@ -19,24 +20,39 @@ class _CreateScreenState extends State<CreateScreen> {
         title: const Text("Create A Todo"),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            TextFormField(
-              controller: titleTxtController,
-              style:const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-             
-              decoration: InputDecoration(
-                 
-                hintText: "Title",
-                hintStyle:const TextStyle(fontSize: 18, fontWeight: FontWeight.w700) ,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
+            InputFieldWidget(
+              titleTxtController: titleTxtController,
+              hintTxt: 'Title',
+            ),
+            const SizedBox(
+              height: 50,
+            ),
+            InputFieldWidget(
+              titleTxtController: descTxtController,
+              hintTxt: 'Description',
+              maxLine: 6,
+            ),
+            const SizedBox(
+              height: 70,
+            ),
+            ElevatedButton(
+              style: const ButtonStyle(
+                backgroundColor:
+                    WidgetStatePropertyAll<Color>(Colors.purpleAccent),
+              ),
+              onPressed: () {},
+              child: Text(
+                "Create",
+                style: TextStyle(
+                  color: Colors.white,
                 ),
               ),
-            ),
+            )
           ],
         ),
       ),
