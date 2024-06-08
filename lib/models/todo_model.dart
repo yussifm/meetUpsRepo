@@ -8,6 +8,11 @@ class TodoModel {
   });
 }
 
-List<TodoModel> todoList = [
-  
-];
+List<TodoModel> todoList = [];
+
+void updateTodo({required int index, required TodoModel data}) {
+  todoList[index] = TodoModel(
+    title: data.title,
+    description: data.description,
+  );
+}

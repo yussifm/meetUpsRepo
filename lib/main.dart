@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:todoapp/models/todo_model.dart';
 import 'package:todoapp/screens/create_screen.dart';
+import 'package:todoapp/screens/edit_screen.dart';
 import 'package:todoapp/widgets/tileContainer_widget.dart';
 import 'package:todoapp/widgets/tileText.dart';
 
@@ -37,7 +38,10 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     Size deviceSize = MediaQuery.sizeOf(context);
-
+    List<TodoModel> todo = [];
+    setState(() {
+      todo = todoList;
+    });
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -51,17 +55,40 @@ class _MyHomePageState extends State<MyHomePage> {
             const SizedBox(
               height: 40,
             ),
-            ...List.generate(todoList.length, (index) {
-              return TileContainerWidget(deviceSize: deviceSize);
+            ...List.generate(todo.length, (index) {
+              return TileContainerWidget(
+                deviceSize: deviceSize,
+                todo: todo[index],
+                index: index,
+                editOnTap: () async {
+                  await Navigator.push(context,
+                      MaterialPageRoute(builder: (context) {
+                    return EditScreen(
+                      todo: todo[index],
+                      index: index,
+                    );
+                  }));
+
+                  setState(() {});
+                },
+                deleteOnTap: () {
+                  todoList.removeAt(
+                    index,
+                  );
+                  setState(() {});
+                },
+              );
             }),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) {
+        onPressed: () async {
+          await Navigator.push(context, MaterialPageRoute(builder: (context) {
             return const CreateScreen();
           }));
+
+          setState(() {});
         },
         child: Icon(Icons.add),
       ),
