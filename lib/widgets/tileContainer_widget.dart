@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:todoapp/models/todo_model.dart';
 import 'package:todoapp/widgets/tileText.dart';
 
 class TileContainerWidget extends StatelessWidget {
-  const TileContainerWidget({
+  TileContainerWidget({
     super.key,
     required this.deviceSize,
+    required this.todo,
+    required this.index,
   });
 
   final Size deviceSize;
+  TodoModel todo;
+  int index;
 
   @override
   Widget build(BuildContext context) {
@@ -15,26 +20,27 @@ class TileContainerWidget extends StatelessWidget {
       width: deviceSize.width,
       height: deviceSize.height * 0.15,
       margin: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
-      padding: EdgeInsets.all(12),
+      padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-          color: Colors.deepPurpleAccent,
-          borderRadius: BorderRadius.circular(20)),
+        color: Colors.deepPurpleAccent,
+        borderRadius: BorderRadius.circular(20),
+      ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Column(
+          Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               TileText(
-                txt: "Title",
+                txt: todo.title,
                 txtColor: Colors.white,
                 txtSize: 28,
                 txtFontWeight: FontWeight.w900,
               ),
               TileText(
-                txt: "Description",
+                txt: todo.description,
                 txtColor: Colors.white,
                 txtSize: 16,
                 txtFontWeight: FontWeight.w500,

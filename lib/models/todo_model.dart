@@ -8,6 +8,8 @@ class TodoModel {
   });
 }
 
-List<TodoModel> todoList = [
-  
-];
+List<TodoModel> todoList = [];
+
+void createTodo({required TodoModel todo}) {
+  todoList.add(todo);
+}

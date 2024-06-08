@@ -38,6 +38,12 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     Size deviceSize = MediaQuery.sizeOf(context);
 
+    List<TodoModel> myTodoList = [];
+
+    setState(() {
+      myTodoList = todoList;
+    });
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -51,17 +57,22 @@ class _MyHomePageState extends State<MyHomePage> {
             const SizedBox(
               height: 40,
             ),
-            ...List.generate(todoList.length, (index) {
-              return TileContainerWidget(deviceSize: deviceSize);
+            ...List.generate(myTodoList.length, (index) {
+              return TileContainerWidget(
+                deviceSize: deviceSize,
+                todo: myTodoList[index],
+                index: index,
+              );
             }),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) {
+        onPressed: () async {
+          await Navigator.push(context, MaterialPageRoute(builder: (context) {
             return const CreateScreen();
           }));
+          setState(() {});
         },
         child: Icon(Icons.add),
       ),
